@@ -1,0 +1,322 @@
+/* ==========================================================================
+   7. How It Works Section
+========================================================================== */
+
+body {
+    background-color: #eee!important;
+}
+
+div.extravertMorePassed, div.aanpassenMorePassed, div.openstaanMorePassed, div.instabiliteitMorePassed, div.conscientieusheidMorePassed {
+    border: 1px solid green;
+}
+
+div.extravertMoreFailed, div.aanpassenMoreFailed, div.openstaanMoreFailed, div.instabiliteitMoreFailed, div.conscientieusheidMoreFailed {
+    border: 1px solid red;
+}
+
+td.green-attribute {
+    color: green;
+}
+
+td.red-attribute {
+    color: red;
+}
+
+i.character-i {
+    color: #488e68;
+}
+
+.tooltip-attribute {
+    position:relative;
+    display:inline-block;
+}
+.tooltip-attribute .tooltiptext {
+    visibility:hidden;
+    width:420px;
+    bottom:100%;
+    left:50%;
+    margin-left:-210px;
+    margin-bottom:10px;
+    background-color: #488e68;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color:#fff;
+    text-align:center;
+    padding:10px 5px;
+    border-radius:6px;
+    position:absolute;
+    z-index:1
+}
+.tooltip-attribute .tooltiptext::after {
+    content:" ";
+    position:absolute;
+    top:100%;
+    left:50%;
+    margin-left:-5px;
+    border-width:5px;
+    border-style:solid;
+    border-color:#488e68 transparent transparent transparent
+}
+.tooltip-attribute:hover .tooltiptext {
+    visibility:visible
+}
+
+form.character-pick-form {
+    background: #33577B;
+    border-radius: 5px;
+    border-color: #488e68;
+    color: white;
+    padding: 20px;
+}
+
+hr.charachter-line {
+    border-color: #294560;
+}
+
+form.character-pick-form label {
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+}
+
+div.example-information-box {
+    padding: 5px;
+    background: #3B6086;
+    color: #fff;
+}
+
+div.example-information-box table {
+    width: 100%;
+}
+
+div.example-information-box td {
+    width: 10%;
+    padding: 8.5px;
+}
+
+.left-panel {
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.right-panel {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+
+.how-it-works {
+    background: #eee;
+	padding-bottom: 30px;
+}
+
+.board{
+	/*width: 75%;
+	margin: 60px auto;
+	margin-bottom: 0;
+	box-shadow: 10px 10px #ccc,-10px 20px #ddd;*/
+}
+.board .nav-tabs {
+	position: relative;
+	/* border-bottom: 0; */
+	/* width: 80%; */
+	margin: 0px auto;
+	margin-bottom: 0;
+	box-sizing: border-box;
+
+}
+
+.board > div.board-inner > .nav-tabs {
+	border: none;
+}
+
+p.narrow{
+	width: 60%;
+	margin: 10px auto;
+}
+
+.liner{
+	height: 2px;
+	background: #ddd;
+	position: absolute;
+	width: 40%;
+	margin: 0 auto;
+	left: 8%;
+	right: 0;
+	top: 60%;
+	z-index: 1;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+	color: #555555;
+	cursor: default;
+	/* background-color: #ffffff; */
+	border: 0;
+	border-bottom-color: transparent;
+	outline: 0;
+}
+
+div.tab-information {
+    color: #bcbcbc;
+    text-shadow: 1px 1px 1px #fff;
+    font-size: 20px;
+}
+
+span.round-tabs{
+	width: 70px;
+	height: 70px;
+	line-height: 70px;
+	display: inline-block;
+	border-radius: 100px;
+	background: white;
+	z-index: 2;
+	position: absolute;
+	left: 0;
+	text-align: center;
+	font-size: 25px;
+}
+
+span.round-tabs.one{
+	border: 2px solid #ddd;
+	color: #ddd;
+}
+
+li.active span.round-tabs.one, li.active span.round-tabs.two, li.active span.round-tabs.three, li.active span.round-tabs.four, li.active span.round-tabs.five {
+	background: #69cb95 !important;
+	border: 2px solid #69cb95;
+	color: #fff;
+}
+
+span.round-tabs.two{
+	border: 2px solid #ddd;
+	color: #ddd;
+}
+
+span.round-tabs.three{
+	border: 2px solid #ddd;
+	color: #ddd;
+}
+
+span.round-tabs.four{
+	border: 2px solid #ddd;
+	color: #ddd;
+}
+
+span.round-tabs.five{
+	border: 2px solid #ddd;nav-tabs
+	color: #ddd;
+}
+
+.nav-tabs > li.active > a span.round-tabs{
+	background: #fafafa;
+}
+
+.nav-tabs {
+    width: 200px;
+    height: 100px!important
+}
+
+.nav-tabs > li {
+    text-align: right;
+    margin-top: 40px;
+	width: 43%;
+	position: relative;
+}
+
+.nav-tabs > li > a {
+    position: absolute!important
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+li.small-list-item {
+    text-align: right;
+	width: 20%!important
+}
+
+.nav-tabs > li.active > a {
+    background-color: #eee!important
+}
+
+, .nav-tabs > li.active > a:hover {
+    background-color: #eee!important
+}
+
+.nav-tabs>li>a:hover {
+    border: none!important;
+}
+
+.nav-tabs > li a{
+	width: 70px;
+	height: 70px;
+	margin: 20px auto;
+	border-radius: 100%;
+	padding: 0;
+}
+
+.nav-tabs>li>a:hover {
+    border: none!important
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    border: none!important
+}
+
+.tab-content{
+}
+.tab-pane{
+	position: relative;
+	padding-top: 10px;
+}
+
+.btn-outline-rounded{
+	padding: 10px 40px;
+	margin: 20px 0;
+	border: 2px solid transparent;
+	border-radius: 25px;
+}
+
+.btn.green{
+	background-color:#69cb95;
+	/*border: 2px solid #5cb85c;*/
+	color: #ffffff;
+}
+
+@media( max-width : 585px ){
+
+	.board {
+		width: 90%;
+		height:auto !important;
+	}
+	span.round-tabs {
+		font-size:16px;
+		width: 50px;
+		height: 50px;
+		line-height: 50px;
+	}
+	.tab-content .head{
+		font-size:20px;
+	}
+	.nav-tabs > li a {
+		width: 50px;
+		height: 50px;
+		line-height:50px;
+		margin-right: 70px!important
+	}
+
+	li.active:after {
+		content: " ";
+		position: absolute;
+		left: 35%;
+	}
+
+	.btn-outline-rounded {
+		padding:12px 20px;
+	}
+}
+}

@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loopbaanplanning</title>
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <link rel="stylesheet" href="/static/css/nav.css" />
+    <link rel="stylesheet" href="/static/css/bootstrap.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <script src="/static/js/jquery.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+</head>
+<body>
+<section  class="section how-it-works" id="how-it-works">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 board">
+                <div class="board-inner">
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active">
+                            <a href="#home" aria-controls="home" role="tab" data-toggle="tab" title="Home screen">
+                              <span class="round-tabs one">
+                                  <i class="fas fa-home"></i>
+                              </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#traits" aria-controls="traits" role="tab" data-toggle="tab" title="Trait screen">
+                                 <span class="round-tabs two">
+                                     <i class="fas fa-table"></i>
+                                 </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="home">
+                      <h2 class="head text-center">Dashboard</h2>
+                      <div class="row">
+                          <div class="col-sm left-panel">
+                            <h4>Welkom op de loopbaanplanning</h4>
+                            <p>Voor eigen het genereren van eigen advies raden wij u aan om de formulier aan de rechterkant in te vullen.</p>
+                            <br />
+                            <p>Benieuwd naar de resultaten van mensen voor u? Bekijk de resultaten van een paar proefpersonen door een selectie te maken in het formulier hieronder.</p>
+                            <hr>
+                            <h4>Selecteer een proefpersoon</h4>
+                            <form method="post" action="/example/" class="character-pick-form">
+                                <div class="row">
+                                    <div class="col-sm">
+                                      <div class="form-group">
+                                        <label for="exampleSelect">Selecteer een proefpersoon:</label>
+                                        <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                            <span class="tooltiptext">Door het selecteren van een proefpersoon kan je de werking van de loopbaanplanning zien.</span>
+                                        </i>
+                                        <select class="form-control" id="exampleSelect" name="character_select">
+                                          <option selected="selected">Jan de Vries</option>
+                                          <option>Henk Cornelissen</option>
+                                          <option>Piet de Reu</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                </div>
+                                <hr class="charachter-line">
+                                <div class="example-information-box">
+                                    <div class="box_1">
+                                      <h4>Jan de vries</h4>
+                                        <table>
+                                          <tr>
+                                            <td>Functie:</td>
+                                            <td>Automonteur</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Rol en level:</td>
+                                            <td>Junior Assistant</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Jaren in dienst:</td>
+                                            <td>1</td>
+                                          </tr>
+                                        </table>
+                                    </div>
+                                    <div class="box_2" style="display: none;">
+                                      <h4>Henk Cornelissen</h4>
+                                        <table>
+                                          <tr>
+                                            <td>Functie:</td>
+                                            <td>Administratief medewerker</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Rol en level:</td>
+                                            <td>Medior General Worker</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Jaren in dienst:</td>
+                                            <td>1</td>
+                                          </tr>
+                                        </table>
+                                    </div>
+                                    <div class="box_3" style="display: none;">
+                                      <h4>Piet de Reu</h4>
+                                        <table>
+                                          <tr>
+                                            <td>Functie:</td>
+                                            <td>Stukadoor</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Rol en level:</td>
+                                            <td>Junior Vakspecialist</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Jaren in dienst:</td>
+                                            <td>2</td>
+                                          </tr>
+                                        </table>
+
+                                    </div>
+                                </div>
+                                <br />
+                                <button type="submit" class="btn btn-primary">Bekijk resultaat</button>
+                            </form>
+                          </div>
+                          <div class="col-sm right-panel">
+                                <h4>Persoonlijke resultaten</h4>
+                                <form method="post" action="/getdata/">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                          <div class="form-group">
+                                            <label for="bpiScore">Vul je gebruikers ID in:</label>
+                                            <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                                <span class="tooltiptext">Door het invullen van jouw gebruikers ID kunnen jouw voorgaande resultaten opgehaald worden. Je gebruikers ID kan gevonden worden in je mail.</span>
+                                            </i>
+                                            <input type="text" name="user_id" class="form-control" id="userId" aria-describedby="userIdHelp" placeholder="Gebruikers ID">
+                                            <small id="userIdHelp" class="form-text text-muted">Vul gebruikersID in</small>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="bpiScore">Vul je BPI resultaat in:</label>
+                                            <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                                <span class="tooltiptext">Vul hier je behaalde BPI resultaat in. Dit is een numerieke waarde tussen de 1 en 100.</span>
+                                            </i>
+                                            <input type="number" min="1" max="100" name="bpi_score" class="form-control" id="bpiScore" aria-describedby="bpiHelp" placeholder="Enter BPI score" required>
+                                            <small id="bpiHelp" class="form-text text-muted">Vul je huidige rol in</small>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="yearSelect">Jaren in huidige functie:</label>
+                                            <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                                <span class="tooltiptext">Selecteer hier de aantal jaren hoelang je jouw huidige functie al beoefent.</span>
+                                            </i>
+                                            <select class="form-control" id="yearSelect" name="year_select" required>
+                                              <option value="1">1</option>
+                                              <option value="2">2</option>
+                                              <option value="3">3</option>
+                                              <option value="4">4</option>
+                                              <option value="5">5</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                        <div class="col-sm">
+                                          <div class="form-group">
+                                            <label for="roleSelect">Selecteer je rol:</label>
+                                            <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                                <span class="tooltiptext">Selecteer hier de rol van je huidige functie.</span>
+                                            </i>
+                                            <select class="form-control" id="roleSelect" name="role_select">
+                                              <option value="1">Assistant</option>
+                                              <option value="2">General Worker</option>
+                                              <option value="3">All Rounder</option>
+                                              <option value="4">Vakspecialist</option>
+                                            </select>
+                                            <small id="roleHelp" class="form-text text-muted">Vul je huidige rol in</small>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="levelSelect">Selecteer je level:</label>
+                                            <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                                <span class="tooltiptext">Selecteer hier de level van je huidige functie.</span>
+                                            </i>
+                                            <select class="form-control" id="levelSelect" name="level_select">
+                                              <option value="1">Junior</option>
+                                              <option value="2">Medior</option>
+                                              <option value="3">Senior</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="form-group">
+                                      <label>Vul je Big Five resultaat in:</label>
+                                      <div class="row">
+                                        <div class="col-sm">
+                                            <label for="extraversieScore">Extraversie resultaat:</label>
+                                             <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                                <span class="tooltiptext">Vul je behaalde extraversie resultaat in. Dit is een numerieke waarde tussen de 1 en 100</span>
+                                             </i>
+                                            <input type="number" min="1" max="100" class="form-control" id="extraversieScore" name="extraversie_score" aria-describedby="bpiHelp" placeholder="Extraversie resultaat" required>
+                                        </div>
+                                        <div class="col-sm">
+                                            <label for="aanpassenScore">Aanpassen resultaat:</label>
+                                             <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                                <span class="tooltiptext">Vul je behaalde aanpassen resultaat in. Dit is een numerieke waarde tussen de 1 en 100</span>
+                                             </i>
+                                            <input type="number" min="1" max="100" class="form-control" id="aanpassenScore" name="aanpassen_score" aria-describedby="bpiHelp" placeholder="Aanpassen resultaat" required>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-sm">
+                                            <label for="openstaanScore">Openstaan resultaat:</label>
+                                             <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                                <span class="tooltiptext">Vul je behaalde openstaan resultaat in. Dit is een numerieke waarde tussen de 1 en 100</span>
+                                             </i>
+                                            <input type="number" min="1" max="100" class="form-control" id="openstaanScore" name="openstaan_score" aria-describedby="openstaanHelp" placeholder="Openstaan resultaat" required>
+                                        </div>
+                                        <div class="col-sm">
+                                            <label for="instabiliteitScore">Instabiliteit resultaat:</label>
+                                             <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                                <span class="tooltiptext">Vul je behaalde instabiliteit resultaat in. Dit is een numerieke waarde tussen de 1 en 100</span>
+                                             </i>
+                                            <input type="number" min="1" max="100" class="form-control" id="instabiliteitScore" name="instabiliteit_score" aria-describedby="instabiliteitHelp" placeholder="Instabiliteit resultaat" required>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-sm">
+                                            <label for="conscientieusheidScore">Conscientieusheid resultaat:</label>
+                                             <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                                <span class="tooltiptext">Vul je behaalde conscientieusheid resultaat in. Dit is een numerieke waarde tussen de 1 en 100</span>
+                                             </i>
+                                            <input type="number" min="1" max="100" class="form-control" id="conscientieusheidScore" name="conscientieusheid_score" aria-describedby="conscientieusheidHelp" placeholder="Conscientieusheid resultaat" required>
+                                        </div>
+                                           <div class="col-sm">
+                                            </div>
+                                      </div>
+                                  </div>
+                                  <button type="submit" class="btn btn-primary">Bekijk resultaat</button>
+                                </form>
+                            </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="traits">
+                        <h3 class="head text-center">Waarschijnlijkheidspercentages Big Five</h3>
+                        <h4 class="head text-center">Let op: de resultaten op deze pagina dienen als een leidraad, en niet als definitief resultaat.</h4>
+
+                        <div class="row">
+                            <div class="col-sm left-panel">
+                                <h4 style="display: inline;">General likelihoodtable</h4>
+                                <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                    <span class="tooltiptext">Dit resultaat geeft een compleet overzicht van de gemiddelde slagingspercentages van elk karaktereigenschap</span>
+                                </i>
+                                <table class="table likeihoodtable" style="display: none;">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Likeihoodtable</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Failed</th>
+                                      <th scope="col">Probability</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Extraversie</th>
+                                      <td class="ExtraversiePassed">-</td>
+                                      <td class="ExtraversieFailed">-</td>
+                                      <td class="ExtraversieProb">-</td>
+                                      <td class="ExtraversieTotal overallSum"></td>
+                                      <td class="ExtraversieAmountCalc"></td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">Aanpassen</th>
+                                      <td class="AanpassenPassed">-</td>
+                                      <td class="AanpassenFailed">-</td>
+                                      <td class="AanpassenProb">-</td>
+                                      <td class="AanpassenTotal overallSum">-</td>
+                                      <td class="AanpassenAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">Openstaan</th>
+                                      <td class="OpenstaanPassed">-</td>
+                                      <td class="OpenstaanFailed">-</td>
+                                      <td class="OpenstaanProb">-</td>
+                                      <td class="OpenstaanTotal overallSum">-</td>
+                                      <td class="OpenstaanAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">Instabiliteit</th>
+                                      <td class="InstabiliteitPassed">-</td>
+                                      <td class="InstabiliteitFailed">-</td>
+                                      <td class="InstabiliteitProb">-</td>
+                                      <td class="InstabiliteitTotal overallSum">-</td>
+                                      <td class="InstabiliteitAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">Conscientieusheid</th>
+                                      <td class="ConscientieusheidPassed">-</td>
+                                      <td class="ConscientieusheidFailed">-</td>
+                                      <td class="ConscientieusheidProb">-</td>
+                                      <td class="ConscientieusheidTotal overallSum"></td>
+                                      <td class="ConscientieusheidAmountCalc"></td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="overallPassedSum">-</td>
+                                      <td class="overallFailedSum">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="overallPassedCalc green-attribute">-</td>
+                                      <td class="overallFailedCalc red-attribute">-</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm right-panel aanpassen-column">
+                                <h4 style="display: inline;">Aanpassen</h4>
+                                <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                    <span class="tooltiptext">Dit resultaat geeft een overzicht van de gemiddelde slagingspercentages van de karaktereigenschap Aanpassen</span>
+                                </i>
+                                <table class="table aanpassen">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Aanpassen</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Failed</th>
+                                      <th scope="col">Probability</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Assistant</th>
+                                      <td class="AssistantPassed">-</td>
+                                      <td class="AssistantFailed">-</td>
+                                      <td class="AssistantProb">-</td>
+                                      <td class="AssistantTotal aanpassenSum"></td>
+                                      <td class="AssistantAmountCalc"></td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">GeneralWorker</th>
+                                      <td class="GeneralWorkerPassed">-</td>
+                                      <td class="GeneralWorkerFailed">-</td>
+                                      <td class="GeneralWorkerProb">-</td>
+                                      <td class="GeneralWorkerTotal overallSum">-</td>
+                                      <td class="GeneralWorkerAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">AllRounder</th>
+                                      <td class="AllRounderPassed">-</td>
+                                      <td class="AllRounderFailed">-</td>
+                                      <td class="AllRounderProb">-</td>
+                                      <td class="AllRounderTotal overallSum">-</td>
+                                      <td class="AllRounderAmountCalc">-</td>
+                                    </tr>
+                                     <tr>
+                                      <th scope="row">Vakspecialist</th>
+                                      <td class="VakspecialistPassed">-</td>
+                                      <td class="VakspecialistFailed">-</td>
+                                      <td class="VakspecialistProb">-</td>
+                                      <td class="VakspecialistTotal overallSum">-</td>
+                                      <td class="VakspecialistAmountCalc">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="aanpassenPassedSum">-</td>
+                                      <td class="aanpassenFailedSum">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="aanpassenPassedCalc green-attribute">-</td>
+                                      <td class="aanpassenFailedCalc red-attribute">-</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                          </div>
+                        <div class="row">
+                            <div class="col-sm left-panel openstaan-column">
+                                <h4 style="display: inline;">Openstaan</h4>
+                                <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                    <span class="tooltiptext">Dit resultaat geeft een overzicht van de gemiddelde slagingspercentages van de karaktereigenschap Openstaan</span>
+                                </i>
+                                <table class="table openstaan">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Extraversie</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Failed</th>
+                                      <th scope="col">Probability</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Assistant</th>
+                                      <td class="AssistantPassed">-</td>
+                                      <td class="AssistantFailed">-</td>
+                                      <td class="AssistantProb">-</td>
+                                      <td class="AssistantTotal openstaanSum"></td>
+                                      <td class="AssistantAmountCalc"></td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">GeneralWorker</th>
+                                      <td class="GeneralWorkerPassed">-</td>
+                                      <td class="GeneralWorkerFailed">-</td>
+                                      <td class="GeneralWorkerProb">-</td>
+                                      <td class="GeneralWorkerTotal overallSum">-</td>
+                                      <td class="GeneralWorkerAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">AllRounder</th>
+                                      <td class="AllRounderPassed">-</td>
+                                      <td class="AllRounderFailed">-</td>
+                                      <td class="AllRounderProb">-</td>
+                                      <td class="AllRounderTotal overallSum">-</td>
+                                      <td class="AllRounderAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">Vakspecialist</th>
+                                      <td class="VakspecialistPassed">-</td>
+                                      <td class="VakspecialistFailed">-</td>
+                                      <td class="VakspecialistProb">-</td>
+                                      <td class="VakspecialistTotal overallSum">-</td>
+                                      <td class="VakspecialistAmountCalc">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="openstaanPassedSum">-</td>
+                                      <td class="openstaanFailedSum">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="openstaanPassedCalc green-attribute">-</td>
+                                      <td class="openstaanFailedCalc red-attribute">-</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm right-panel instabiliteit-column">
+                                <h4 style="display: inline;">Instabiliteit</h4>
+                                <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                    <span class="tooltiptext">Dit resultaat geeft een overzicht van de gemiddelde slagingspercentages van de karaktereigenschap Instabiliteit</span>
+                                </i>
+                                <table class="table instabiliteit">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Aanpassen</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Failed</th>
+                                      <th scope="col">Probability</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Assistant</th>
+                                      <td class="AssistantPassed">-</td>
+                                      <td class="AssistantFailed">-</td>
+                                      <td class="AssistantProb">-</td>
+                                      <td class="AssistantTotal instabiliteitSum"></td>
+                                      <td class="AssistantAmountCalc"></td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">GeneralWorker</th>
+                                      <td class="GeneralWorkerPassed">-</td>
+                                      <td class="GeneralWorkerFailed">-</td>
+                                      <td class="GeneralWorkerProb">-</td>
+                                      <td class="GeneralWorkerTotal overallSum">-</td>
+                                      <td class="GeneralWorkerAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">AllRounder</th>
+                                      <td class="AllRounderPassed">-</td>
+                                      <td class="AllRounderFailed">-</td>
+                                      <td class="AllRounderProb">-</td>
+                                      <td class="AllRounderTotal overallSum">-</td>
+                                      <td class="AllRounderAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">Vakspecialist</th>
+                                      <td class="VakspecialistPassed">-</td>
+                                      <td class="VakspecialistFailed">-</td>
+                                      <td class="VakspecialistProb">-</td>
+                                      <td class="VakspecialistTotal overallSum">-</td>
+                                      <td class="VakspecialistAmountCalc">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="instabiliteitPassedSum">-</td>
+                                      <td class="instabiliteitFailedSum">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="instabiliteitPassedCalc green-attribute">-</td>
+                                      <td class="instabiliteitFailedCalc red-attribute">-</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                          </div>
+                        <div class="row">
+                            <div class="col-sm left-panel conscientieusheid-column">
+                                <h4 style="display: inline;">Conscientieusheid</h4>
+                                <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                    <span class="tooltiptext">Dit resultaat geeft een overzicht van de gemiddelde slagingspercentages van de karaktereigenschap Conscientieusheid</span>
+                                </i>
+                                <table class="table conscientieusheid">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Extraversie</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Failed</th>
+                                      <th scope="col">Probability</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Assistant</th>
+                                      <td class="AssistantPassed">-</td>
+                                      <td class="AssistantFailed">-</td>
+                                      <td class="AssistantProb">-</td>
+                                      <td class="AssistantTotal conscientieusheidSum"></td>
+                                      <td class="AssistantAmountCalc"></td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">GeneralWorker</th>
+                                      <td class="GeneralWorkerPassed">-</td>
+                                      <td class="GeneralWorkerFailed">-</td>
+                                      <td class="GeneralWorkerProb">-</td>
+                                      <td class="GeneralWorkerTotal overallSum">-</td>
+                                      <td class="GeneralWorkerAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">AllRounder</th>
+                                      <td class="AllRounderPassed">-</td>
+                                      <td class="AllRounderFailed">-</td>
+                                      <td class="AllRounderProb">-</td>
+                                      <td class="AllRounderTotal overallSum">-</td>
+                                      <td class="AllRounderAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">Vakspecialist</th>
+                                      <td class="VakspecialistPassed">-</td>
+                                      <td class="VakspecialistFailed">-</td>
+                                      <td class="VakspecialistProb">-</td>
+                                      <td class="VakspecialistTotal overallSum">-</td>
+                                      <td class="VakspecialistAmountCalc">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="conscientieusheidPassedSum">-</td>
+                                      <td class="conscientieusheidFailedSum">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="conscientieusheidPassedCalc green-attribute">-</td>
+                                      <td class="conscientieusheidFailedCalc red-attribute">-</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm right-panel extravert-column">
+                                <h4 style="display: inline;">Extraversie</h4>
+                                <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                    <span class="tooltiptext">Dit resultaat geeft een overzicht van de gemiddelde slagingspercentages van de karaktereigenschap Extraversie</span>
+                                </i>
+                                <table class="table extraversie">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Extraversie</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Failed</th>
+                                      <th scope="col">Probability</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Assistant</th>
+                                      <td class="AssistantPassed">-</td>
+                                      <td class="AssistantFailed">-</td>
+                                      <td class="AssistantProb">-</td>
+                                      <td class="AssistantTotal extravertSum"></td>
+                                      <td class="AssistantAmountCalc"></td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">GeneralWorker</th>
+                                      <td class="GeneralWorkerPassed">-</td>
+                                      <td class="GeneralWorkerFailed">-</td>
+                                      <td class="GeneralWorkerProb">-</td>
+                                      <td class="GeneralWorkerTotal overallSum">-</td>
+                                      <td class="GeneralWorkerAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">AllRounder</th>
+                                      <td class="AllRounderPassed">-</td>
+                                      <td class="AllRounderFailed">-</td>
+                                      <td class="AllRounderProb">-</td>
+                                      <td class="AllRounderTotal overallSum">-</td>
+                                      <td class="AllRounderAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">Vakspecialist</th>
+                                      <td class="VakspecialistPassed">-</td>
+                                      <td class="VakspecialistFailed">-</td>
+                                      <td class="VakspecialistProb">-</td>
+                                      <td class="VakspecialistTotal overallSum">-</td>
+                                      <td class="VakspecialistAmountCalc">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="extravertPassedSum">-</td>
+                                      <td class="extravertFailedSum">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="extravertPassedCalc green-attribute">-</td>
+                                      <td class="extravertFailedCalc red-attribute">-</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                            </div>
+                          </div>
+                    <div class="tab-pane fade" id="statitics">
+                        <h2 class="head text-center">Statistieken</h2>
+                    </div>
+                    <div class="tab-pane fade" id="loopbaanplanning">
+                        <h2 class="head text-center">Loopbaanplanning</h2>
+                    </div>
+                    <div class="tab-pane fade" id="feedback">
+                        <div class="text-center">
+                            <i class="img-intro icon-checkmark-circle"></i>
+                        </div>
+                        <h2 class="head text-center">Feedback</h2>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $('select#exampleSelect').change(function() {
+        var optionSelected = $(this).val();
+        if (optionSelected == 'Jan de Vries') {
+            $('div.box_2').hide();
+            $('div.box_3').hide();
+            $('div.box_1').show();
+        } else if (optionSelected == 'Henk Cornelissen') {
+            $('div.box_1').hide();
+            $('div.box_3').hide();
+            $('div.box_2').show();
+        } else {
+            $('div.box_1').hide();
+            $('div.box_2').hide();
+            $('div.box_3').show();
+        }
+    });
+</script>
+<script>
+
+$(document).ready(function(){
+    $.ajax({
+        method: "GET",
+        url: "/rungenerallikiehood",
+        success: function(result){
+            var result = JSON.parse(result)
+
+            var finalResults = result[0],
+                subResults = result[1],
+                subResultsList = [],
+                overallFailedSum = finalResults.overallFailedSum,
+                overallPassedSum = finalResults.overallPassedSum,
+                overallSum = finalResults.overallSum,
+                passedCalculation = finalResults.passedCalculation;
+                failedCalculation = finalResults.failedCalculation;
+
+            subResultsList.push(subResults[0], subResults[1], subResults[2], subResults[3], subResults[4]);
+
+            $.each( subResultsList, function( key, karaktereigenschap ) {
+                $.each( karaktereigenschap, function( key, value ) {
+                    if (key.indexOf("Total") !=-1) {
+                        $("td."+key).html(value + "/" + overallSum);
+                    } else {
+                        $("td."+key).html(value);
+                    }
+                });
+            });
+
+            $('td.overallPassedSum').html(overallPassedSum + "/" + overallSum);
+            $('td.overallPassedCalc').html(passedCalculation);
+            $('td.overallFailedSum').html(overallFailedSum + "/" + overallSum);
+            $('td.overallFailedCalc').html(failedCalculation);
+
+            $('table.likeihoodtable').show();
+
+            $.ajax({
+                method: "GET",
+                url: "/runtraitfrequencies",
+                success: function(result){
+                     var result = JSON.parse(result);
+                     console.log(result)
+
+                     var extravertFailedSum,
+                         extravertPassedSum,
+                         extravertSum,
+                         extravertPassedCalculation,
+                         extravertFailedCalculation,
+                         extravertMorePassed,
+                         openstaanFailedSum,
+                         openstaanPassedSum,
+                         openstaanSum,
+                         openstaanPassedCalculation,
+                         openstaanFailedCalculation,
+                         openstaanMorePassed,
+                         aanpassenFailedSum,
+                         aanpassenPassedSum,
+                         aanpassenSum,
+                         aanpassenPassedCalculation,
+                         aanpassenFailedCalculation,
+                         aanpassenMorePassed,
+                         instabiliteitFailedSum,
+                         instabiliteitnPassedSum,
+                         instabiliteitSum,
+                         instabiliteitPassedCalculation,
+                         instabiliteitFailedCalculation,
+                         instabiliteitMorePassed,
+                         conscientieusheidFailedSum,
+                         conscientieusheidPassedSum,
+                         conscientieusheidSum,
+                         conscientieusheidPassedCalculation,
+                         conscientieusheidFailedCalculation,
+                         conscientieusheidMorePassed;
+
+                     for(var i = 0; i < result.length; i++) {
+                         var finalResults = result[i][0],
+                            subResults = result[i][1],
+                            subResultsList = [],
+                            currentForm;
+
+                         switch(i) {
+                            case 0:
+                                currentForm = "extraversie",
+                                extravertFailedSum = finalResults.extravertFailedSum,
+                                extravertPassedSum = finalResults.extravertPassedSum,
+                                extravertSum = finalResults.extravertSum,
+                                extravertPassedCalculation = finalResults.extravertpassedCalculation,
+                                extravertFailedCalculation = finalResults.extravertfailedCalculation;
+                                extravertMorePassed = finalResults.extravertMorePassed;
+                                break;
+                            case 1:
+                                currentForm = "openstaan",
+                                openstaanFailedSum = finalResults.openstaanFailedSum,
+                                openstaanPassedSum = finalResults.openstaanPassedSum,
+                                openstaanSum = finalResults.openstaanSum,
+                                openstaanPassedCalculation = finalResults.openstaanpassedCalculation,
+                                openstaanFailedCalculation = finalResults.openstaanfailedCalculation;
+                                openstaanMorePassed = finalResults.openstaanMorePassed;
+                                break;
+                            case 2:
+                                currentForm = "aanpassen",
+                                aanpassenFailedSum = finalResults.aanpassenFailedSum,
+                                aanpassenPassedSum = finalResults.aanpassenPassedSum,
+                                aanpassenSum = finalResults.aanpassenSum,
+                                aanpassenPassedCalculation = finalResults.aanpassenpassedCalculation,
+                                aanpassenFailedCalculation = finalResults.aanpassenfailedCalculation;
+                                aanpassenMorePassed = finalResults.aanpassenMorePassed;
+                                break;
+                            case 3:
+                                currentForm = "instabiliteit",
+                                instabiliteitFailedSum = finalResults.instabiliteitFailedSum,
+                                instabiliteitPassedSum = finalResults.instabiliteitPassedSum,
+                                instabiliteitSum = finalResults.instabiliteitSum,
+                                instabiliteitPassedCalculation = finalResults.instabiliteitpassedCalculation,
+                                instabiliteitFailedCalculation = finalResults.instabiliteitfailedCalculation;
+                                instabiliteitMorePassed = finalResults.instabiliteitMorePassed;
+                                break;
+                            case 4:
+                                currentForm = "conscientieusheid",
+                                conscientieusheidFailedSum = finalResults.conscientieusheidFailedSum,
+                                conscientieusheidPassedSum = finalResults.conscientieusheidPassedSum,
+                                conscientieusheidSum = finalResults.conscientieusheidSum,
+                                conscientieusheidPassedCalculation = finalResults.conscientieusheidpassedCalculation,
+                                conscientieusheidFailedCalculation = finalResults.conscientieusheidfailedCalculation;
+                                conscientieusheidMorePassed = finalResults.conscientieusheidMorePassed;
+                                break;
+                         }
+
+                        subResultsList.push(subResults[0], subResults[1], subResults[2], subResults[3]);
+
+                        $.each( subResultsList, function( key, role ) {
+                            $.each( role, function( key, value ) {
+                                console.log(key, value);
+                                if (key.indexOf("Total") !=-1) {
+                                    $("table."+currentForm+" td."+key).html(value + "/" + extravertSum);
+                                } else {
+                                    $("table."+currentForm+" td."+key).html(value);
+                                }
+                            });
+                        });
+                    };
+
+                    $('div.extravert-column').addClass(extravertMorePassed);
+                    $('td.extravertPassedSum').html(extravertPassedSum + "/" + extravertSum);
+                    $('td.extravertPassedCalc').html(extravertPassedCalculation);
+                    $('td.extravertFailedSum').html(extravertFailedSum + "/" + extravertSum);
+                    $('td.extravertFailedCalc').html(extravertFailedCalculation);
+
+                    $('div.openstaan-column').addClass(openstaanMorePassed);
+                    $('td.openstaanPassedSum').html(openstaanPassedSum + "/" + openstaanSum);
+                    $('td.openstaanPassedCalc').html(openstaanPassedCalculation);
+                    $('td.openstaanFailedSum').html(openstaanFailedSum + "/" + openstaanSum);
+                    $('td.openstaanFailedCalc').html(openstaanFailedCalculation);
+
+                    $('div.aanpassen-column').addClass(aanpassenMorePassed);
+                    $('td.aanpassenPassedSum').html(aanpassenPassedSum + "/" + aanpassenSum);
+                    $('td.aanpassenPassedCalc').html(aanpassenPassedCalculation);
+                    $('td.aanpassenFailedSum').html(aanpassenFailedSum + "/" + aanpassenSum);
+                    $('td.aanpassenFailedCalc').html(aanpassenFailedCalculation);
+
+                    $('div.instabiliteit-column').addClass(instabiliteitMorePassed);
+                    $('td.instabiliteitPassedSum').html(instabiliteitPassedSum + "/" + instabiliteitSum);
+                    $('td.instabiliteitPassedCalc').html(instabiliteitPassedCalculation);
+                    $('td.instabiliteitFailedSum').html(instabiliteitFailedSum + "/" + instabiliteitSum);
+                    $('td.instabiliteitFailedCalc').html(instabiliteitFailedCalculation);
+
+                    $('div.conscientieusheid-column').addClass(conscientieusheidMorePassed);
+                    $('td.conscientieusheidPassedSum').html(conscientieusheidPassedSum + "/" + conscientieusheidSum);
+                    $('td.conscientieusheidPassedCalc').html(conscientieusheidPassedCalculation);
+                    $('td.conscientieusheidFailedSum').html(conscientieusheidFailedSum + "/" + conscientieusheidSum);
+                    $('td.conscientieusheidFailedCalc').html(conscientieusheidFailedCalculation);
+                }
+            });
+        }
+    });
+});
+
+</script>
+</body>
+</html>

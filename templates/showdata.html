@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loopbaanplanning</title>
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <link rel="stylesheet" href="/static/css/nav.css" />
+    <link rel="stylesheet" href="/static/css/bootstrap.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <script src="/static/js/jquery.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+
+<section  class="section how-it-works" id="how-it-works">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 board">
+                <div class="board-inner">
+                    <ul class="nav nav-tabs" id="myTab" style="float: left;">
+                        <li class="small-list-item">
+                            <button onclick="javascript:location.href='http://127.0.0.1:8000/'" type="button" class="btn btn-primary btn-lg btn3d">
+                                <span class="glyphicon"></span><i class="fas fa-arrow-left"></i> Terug naar dashboard
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab-content" style="clear: both;">
+                    <div class="tab-pane fade in active" id="home">
+                      <h2 class="head text-center">{{loopbaanFunction}}</h2>
+                      <h4 class="head text-center">Let op: de resultaten op deze pagina dienen als een leidraad, en niet als definitief resultaat.</h4>
+                      <div class="row">
+                          <div class="col-sm left-panel">
+                            <h3>Loopbaanplanning</h3>
+                            <span>In totaal zijn er <strong>{{loopbaanCount}}</strong> vergelijkbare resultaten gevonden.</span>
+                            <span>Hour er rekening mee dat de resultaten op deze pagina een raadgevend advies geven, en kunnen dus lichtelijk afwijken van jouw loopbaan.</span>
+                            <br />
+                            <br />
+                            <br />
+                            <span>Je maakt evenveel kans om binnen 1 en 5 jaar door te groeien naar de functies  Medior AllRounder, Senior GeneralWorker of Medior GeneralWorker</span>
+                            <br />
+                            <br />
+                            <br />
+                            <span>Het is aan te raden dat je je focust op het doorzetten van jouw vordering. Je scoort namelijk goed op de BPI.</span>
+                            <br />
+                            <br />
+                            <br />
+                          </div>
+                          <div class="col-sm right-panel" style="width: 100%;">
+                            <h4>Doorgroeimogelijkheden</h4>
+                            <canvas id="myCanvas" style="margin: 0 auto; width: 300px; display: block;"></canvas>
+                            <div id="myLegend"></div>
+                          </div>
+                        </div>
+                      <div class="row">
+                          <div class="col-sm left-panel">
+                            <form method="post" action="/example/" class="character-pick-form">
+                                <div class="row">
+                                    <div class="col-sm">
+                                      <div class="form-group">
+                                        <label for="traitSelect">Advies voor elk karaktereigenschap:</label>
+                                        <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                            <span class="tooltiptext">Selecteer een karaktereigenschap om jouw kansen te vergelijken.</span>
+                                        </i>
+                                        <select class="form-control" id="traitSelect" name="trait_select">
+                                          <option selected="selected">Extraversie</option>
+                                          <option>Aanpassen</option>
+                                          <option>Openstaan</option>
+                                          <option>Instabiliteit</option>
+                                          <option>Conscientieusheid</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="example-information-box">
+                                    <div class="box_1">
+                                      <h4>Extraversie</h4>
+                                      <p>Je scoort hoog op extraversie. Je kansen in vergelijking met andere resultaten zijn erg hoog.</p>
+                                    </div>
+                                    <div class="box_2" style="display: none;">
+                                      <h4>Aanpassen</h4>
+                                      <p>Je scoort hoog op aanpassen. Je kansen in vergelijking met andere resultaten zijn erg hoog.</p>
+                                    </div>
+                                    <div class="box_3" style="display: none;">
+                                      <h4>Openstaan</h4>
+                                      <p>Je scoort hoog op openstaan. Je kansen in vergelijking met andere resultaten zijn erg hoog.</p>
+                                    </div>
+                                    <div class="box_4" style="display: none;">
+                                      <h4>Instabiliteit</h4>
+                                      <p>Je scoort hoog op instabiliteit. Je kansen in vergelijking met andere resultaten zijn erg hoog.</p>
+                                    </div>
+                                    <div class="box_5" style="display: none;">
+                                      <h4>Conscientieusheid</h4>
+                                      <p>Je scoort hoog op conscientieusheid. Je kansen in vergelijking met andere resultaten zijn erg hoog.</p>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="level_role" style="display: none;">
+                                {% for role_level in loopbaanLevelRoleNames %}
+                                    <p class="level_role_child">{{role_level}}</p>
+                                {% endfor %}
+                            </div>
+                          </div>
+                          <div class="col-sm right-panel aanpassenMorePassed">
+                            <h4 style="display: inline;">Aanpassen</h4>
+                            <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                <span class="tooltiptext">Dit resultaat geeft een overzicht van de gemiddelde slagingspercentages van de karaktereigenschap Aanpassen</span>
+                            </i>
+                            <table class="table aanpassen">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Aanpassen</th>
+                                  <th scope="col">Passed</th>
+                                  <th scope="col">Failed</th>
+                                  <th scope="col">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <th scope="row">Role</th>
+                                  <td class="RolePassed">{{aanpassen.aanpassenPassedSum}}</td>
+                                  <td class="RoletFailed">{{aanpassen.aanpassenFailedSum}}</td>
+                                  <td class="RoleProb">{{aanpassen.aanpassenSum}}</td>
+                                </tr>
+                                <tr>
+                                  <th scope="row"></th>
+                                  <td class="extravertPassedSum">{{aanpassen.aanpassenPassedCalculation}}</td>
+                                  <td class="extravertFailedSum">{{aanpassen.aanpassenFailedCalculation}}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                        </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm left-panel openstaanMorePassed">
+                                <h4 style="display: inline;">Openstaan</h4>
+                                <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                    <span class="tooltiptext">Dit resultaat geeft een overzicht van de gemiddelde slagingspercentages van de karaktereigenschap Openstaan</span>
+                                </i>
+                                <table class="table openstaan">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Openstaan</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Failed</th>
+                                      <th scope="col">Total</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Role</th>
+                                      <td class="RolePassed">{{openstaan.openstaanPassedSum}}</td>
+                                      <td class="RoletFailed">{{openstaan.openstaanFailedSum}}</td>
+                                      <td class="RoleProb">{{openstaan.openstaanSum}}</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row"></th>
+                                      <td class="openstaanPassedSum">{{openstaan.openstaanPassedCalculation}}</td>
+                                      <td class="openstaanFailedSum">{{openstaan.openstaanFailedCalculation}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                          </div>
+                          <div class="col-sm right-panel instabiliteitMorePassed">
+                                <h4 style="display: inline;">Instabiliteit</h4>
+                                <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                    <span class="tooltiptext">Dit resultaat geeft een overzicht van de gemiddelde slagingspercentages van de karaktereigenschap Instabiliteit</span>
+                                </i>
+                                <table class="table instabiliteit">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Instabiliteit</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Failed</th>
+                                      <th scope="col">Total</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Role</th>
+                                      <td class="RolePassed">{{instabiliteit.instabiliteitPassedSum}}</td>
+                                      <td class="RoletFailed">{{instabiliteit.instabiliteitFailedSum}}</td>
+                                      <td class="RoleProb">{{instabiliteit.instabiliteitSum}}</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row"></th>
+                                      <td class="instabiliteitPassedSum">{{instabiliteit.instabiliteitPassedCalculation}}</td>
+                                      <td class="instabiliteitFailedSum">{{instabiliteit.instabiliteitFailedCalculation}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                           </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm left-panel extravertMorePassed">
+                                <h4 style="display: inline;">Extraversie</h4>
+                                <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                    <span class="tooltiptext">Dit resultaat geeft een overzicht van de gemiddelde slagingspercentages van de karaktereigenschap Extraversies</span>
+                                </i>
+                                <table class="table extraversie">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Extraversie</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Failed</th>
+                                      <th scope="col">Total</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Role</th>
+                                      <td class="RolePassed">{{extraversie.extravertPassedSum}}</td>
+                                      <td class="RoletFailed">{{extraversie.extravertFailedSum}}</td>
+                                      <td class="RoleProb">{{extraversie.extravertSum}}</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row"></th>
+                                      <td class="extravertPassedSum">{{extraversie.extravertPassedCalculation}}</td>
+                                      <td class="extravertFailedSum">{{extraversie.extravertFailedCalculation}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                          <div class="col-sm right-panel conscientieusheidMoreFailed">
+                                <h4 style="display: inline;">Conscientieusheid</h4>
+                                <i class="fa fa-info-circle tooltip-attribute character-i" aria-hidden="true">
+                                    <span class="tooltiptext">Dit resultaat geeft een overzicht van de gemiddelde slagingspercentages van de karaktereigenschap Conscientieusheid</span>
+                                </i>
+                                <table class="table conscientieusheid">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Conscientieusheid</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Failed</th>
+                                      <th scope="col">Total</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Role</th>
+                                      <td class="RolePassed">{{conscientieusheid.conscientieusheidPassedSum}}</td>
+                                      <td class="RoletFailed">{{conscientieusheid.conscientieusheidFailedSum}}</td>
+                                      <td class="RoleProb">{{conscientieusheid.conscientieusheidSum}}</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row"></th>
+                                      <td class="conscientieusheidPassedSum">{{conscientieusheid.conscientieusheidPassedCalculation}}</td>
+                                      <td class="conscientieusheidFailedSum">{{conscientieusheid.conscientieusheidFailedCalculation}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="traits">
+                        <h3 class="head text-center">Likelihood karakteristieken</h3>
+
+                        <div class="row">
+                            <div class="col-sm left-panel">
+                                <h4>Extraversie</h4>
+                                <table class="table extraversie">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Extraversie</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Failed</th>
+                                      <th scope="col">Probability</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Assistant</th>
+                                      <td class="AssistantPassed">-</td>
+                                      <td class="AssistantFailed">-</td>
+                                      <td class="AssistantProb">-</td>
+                                      <td class="AssistantTotal extravertSum"></td>
+                                      <td class="AssistantAmountCalc"></td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">GeneralWorker</th>
+                                      <td class="GeneralWorkerPassed">-</td>
+                                      <td class="GeneralWorkerFailed">-</td>
+                                      <td class="GeneralWorkerProb">-</td>
+                                      <td class="GeneralWorkerTotal overallSum">-</td>
+                                      <td class="GeneralWorkerAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">AllRounder</th>
+                                      <td class="AllRounderPassed">-</td>
+                                      <td class="AllRounderFailed">-</td>
+                                      <td class="AllRounderProb">-</td>
+                                      <td class="AllRounderTotal overallSum">-</td>
+                                      <td class="AllRounderAmountCalc">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="extravertPassedSum">-</td>
+                                      <td class="extravertFailedSum">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="extravertPassedCalc">-</td>
+                                      <td class="extravertFailedCalc">-</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm right-panel">
+                                <h4>Aanpassen</h4>
+                                <table class="table aanpassen">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Aanpassen</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Failed</th>
+                                      <th scope="col">Probability</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Assistant</th>
+                                      <td class="AssistantPassed">-</td>
+                                      <td class="AssistantFailed">-</td>
+                                      <td class="AssistantProb">-</td>
+                                      <td class="AssistantTotal aanpassenSum"></td>
+                                      <td class="AssistantAmountCalc"></td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">GeneralWorker</th>
+                                      <td class="GeneralWorkerPassed">-</td>
+                                      <td class="GeneralWorkerFailed">-</td>
+                                      <td class="GeneralWorkerProb">-</td>
+                                      <td class="GeneralWorkerTotal overallSum">-</td>
+                                      <td class="GeneralWorkerAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">AllRounder</th>
+                                      <td class="AllRounderPassed">-</td>
+                                      <td class="AllRounderFailed">-</td>
+                                      <td class="AllRounderProb">-</td>
+                                      <td class="AllRounderTotal overallSum">-</td>
+                                      <td class="AllRounderAmountCalc">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="aanpassenPassedSum">-</td>
+                                      <td class="aanpassenFailedSum">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="aanpassenPassedCalc">-</td>
+                                      <td class="aanpassenFailedCalc">-</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                          </div>
+                        <div class="row">
+                            <div class="col-sm left-panel">
+                                <h4>Openstaan</h4>
+                                <table class="table openstaan">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Extraversie</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Failed</th>
+                                      <th scope="col">Probability</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Assistant</th>
+                                      <td class="AssistantPassed">-</td>
+                                      <td class="AssistantFailed">-</td>
+                                      <td class="AssistantProb">-</td>
+                                      <td class="AssistantTotal openstaanSum"></td>
+                                      <td class="AssistantAmountCalc"></td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">GeneralWorker</th>
+                                      <td class="GeneralWorkerPassed">-</td>
+                                      <td class="GeneralWorkerFailed">-</td>
+                                      <td class="GeneralWorkerProb">-</td>
+                                      <td class="GeneralWorkerTotal overallSum">-</td>
+                                      <td class="GeneralWorkerAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">AllRounder</th>
+                                      <td class="AllRounderPassed">-</td>
+                                      <td class="AllRounderFailed">-</td>
+                                      <td class="AllRounderProb">-</td>
+                                      <td class="AllRounderTotal overallSum">-</td>
+                                      <td class="AllRounderAmountCalc">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="openstaanPassedSum">-</td>
+                                      <td class="openstaanFailedSum">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="openstaanPassedCalc">-</td>
+                                      <td class="openstaanFailedCalc">-</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm right-panel">
+                                <h4>Instabiliteit</h4>
+                                <table class="table instabiliteit">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Aanpassen</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Failed</th>
+                                      <th scope="col">Probability</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Assistant</th>
+                                      <td class="AssistantPassed">-</td>
+                                      <td class="AssistantFailed">-</td>
+                                      <td class="AssistantProb">-</td>
+                                      <td class="AssistantTotal instabiliteitSum"></td>
+                                      <td class="AssistantAmountCalc"></td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">GeneralWorker</th>
+                                      <td class="GeneralWorkerPassed">-</td>
+                                      <td class="GeneralWorkerFailed">-</td>
+                                      <td class="GeneralWorkerProb">-</td>
+                                      <td class="GeneralWorkerTotal overallSum">-</td>
+                                      <td class="GeneralWorkerAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">AllRounder</th>
+                                      <td class="AllRounderPassed">-</td>
+                                      <td class="AllRounderFailed">-</td>
+                                      <td class="AllRounderProb">-</td>
+                                      <td class="AllRounderTotal overallSum">-</td>
+                                      <td class="AllRounderAmountCalc">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="instabiliteitPassedSum">-</td>
+                                      <td class="instabiliteitFailedSum">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="instabiliteitPassedCalc">-</td>
+                                      <td class="instabiliteitFailedCalc">-</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                          </div>
+                        <div class="row">
+                            <div class="col-sm left-panel">
+                                <h4>Conscientieusheid</h4>
+                                <table class="table conscientieusheid">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Extraversie</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Failed</th>
+                                      <th scope="col">Probability</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">Assistant</th>
+                                      <td class="AssistantPassed">-</td>
+                                      <td class="AssistantFailed">-</td>
+                                      <td class="AssistantProb">-</td>
+                                      <td class="AssistantTotal conscientieusheidSum"></td>
+                                      <td class="AssistantAmountCalc"></td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">GeneralWorker</th>
+                                      <td class="GeneralWorkerPassed">-</td>
+                                      <td class="GeneralWorkerFailed">-</td>
+                                      <td class="GeneralWorkerProb">-</td>
+                                      <td class="GeneralWorkerTotal overallSum">-</td>
+                                      <td class="GeneralWorkerAmountCalc">-</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">AllRounder</th>
+                                      <td class="AllRounderPassed">-</td>
+                                      <td class="AllRounderFailed">-</td>
+                                      <td class="AllRounderProb">-</td>
+                                      <td class="AllRounderTotal overallSum">-</td>
+                                      <td class="AllRounderAmountCalc">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="conscientieusheidPassedSum">-</td>
+                                      <td class="conscientieusheidFailedSum">-</td>
+                                    </tr>
+                                  <tr>
+                                      <th scope="row"></th>
+                                      <td class="conscientieusheidPassedCalc">-</td>
+                                      <td class="conscientieusheidFailedCalc">-</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm">
+                            </div>
+                          </div>
+                    </div>
+                    <div class="tab-pane fade" id="statitics">
+                        <h3 class="head text-center">Prototyping</h3>
+                        <p class="narrow text-center">
+                            Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
+                        </p>
+
+                        <p class="text-center">
+                            <a href="" class="btn btn-success btn-outline-rounded green"> Get Quote <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                        </p>
+                    </div>
+                    <div class="tab-pane fade" id="uidesign">
+                        <h3 class="head text-center">UI Design</h3>
+                        <p class="narrow text-center">
+                            Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
+                        </p>
+
+                        <p class="text-center">
+                            <a href="" class="btn btn-success btn-outline-rounded green"> Get Quote <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                        </p>
+                    </div>
+                    <div class="tab-pane fade" id="feedback">
+                        <div class="text-center">
+                            <i class="img-intro icon-checkmark-circle"></i>
+                        </div>
+                        <h3 class="head text-center">Development</h3>
+                        <p class="narrow text-center">
+                            Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
+                        </p>
+                        <p class="text-center">
+                            <a href="" class="btn btn-success btn-outline-rounded green"> Get Quote <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
+                        </p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $('select#traitSelect').change(function() {
+        var optionSelected = $(this).val();
+        console.log(optionSelected);
+        if (optionSelected == 'Extraversie') {
+            $('div.box_2').hide();
+            $('div.box_3').hide();
+            $('div.box_4').hide();
+            $('div.box_5').hide();
+            $('div.box_1').show();
+        } else if (optionSelected == 'Aanpassen') {
+            $('div.box_1').hide();
+            $('div.box_3').hide();
+            $('div.box_4').hide();
+            $('div.box_5').hide();
+            $('div.box_2').show();
+        } else if (optionSelected == 'Openstaan') {
+            $('div.box_1').hide();
+            $('div.box_2').hide();
+            $('div.box_4').hide();
+            $('div.box_5').hide();
+            $('div.box_3').show();
+        } else if (optionSelected == 'Instabiliteit') {
+            $('div.box_1').hide();
+            $('div.box_2').hide();
+            $('div.box_3').hide();
+            $('div.box_5').hide();
+            $('div.box_4').show();
+        } else {
+            $('div.box_1').hide();
+            $('div.box_2').hide();
+            $('div.box_3').hide();
+            $('div.box_4').hide();
+            $('div.box_5').show();
+        }
+    });
+</script>
+<script>
+
+    $(document).ready(function(){
+
+        levelRoleChilds = $('p.level_role_child');
+        levelRoleChildsArray = []
+
+        var myVinyls = {
+        };
+
+        for(var i = 0; i < levelRoleChilds.length; i++) {
+            if(!arrayContains(levelRoleChilds[i].innerHTML, levelRoleChildsArray)) {
+                levelRoleChildsArray.push(levelRoleChilds[i].innerHTML);
+                myVinyls[levelRoleChilds[i].innerHTML] = 1
+            } else {
+                myVinyls[levelRoleChilds[i].innerHTML] += 1
+            }
+        }
+
+        var Piechart = function(options){
+            this.options = options;
+            this.canvas = options.canvas;
+            this.ctx = this.canvas.getContext("2d");
+            this.colors = options.colors;
+
+            this.draw = function(){
+                var total_value = 0;
+                var color_index = 0;
+                for (var categ in this.options.data){
+                    var val = this.options.data[categ];
+                    total_value += val;
+                }
+
+                var start_angle = 0;
+                for (categ in this.options.data){
+                    val = this.options.data[categ];
+                    var slice_angle = 2 * Math.PI * val / total_value;
+
+                    drawPieSlice(
+                        this.ctx,
+                        this.canvas.width/2,
+                        this.canvas.height/2,
+                        Math.min(this.canvas.width/2,this.canvas.height/2),
+                        start_angle,
+                        start_angle+slice_angle,
+                        this.colors[color_index%this.colors.length]
+                    );
+
+                    start_angle += slice_angle;
+                    color_index++;
+                }
+
+                //drawing a white circle over the chart
+                //to create the doughnut chart
+                if (this.options.doughnutHoleSize){
+                    drawPieSlice(
+                        this.ctx,
+                        this.canvas.width/2,
+                        this.canvas.height/2,
+                        this.options.doughnutHoleSize * Math.min(this.canvas.width/2,this.canvas.height/2),
+                        0,
+                        2 * Math.PI,
+                        "#ffffff"
+                    );
+                }
+                start_angle = 0;
+                for (categ in this.options.data){
+                    val = this.options.data[categ];
+                    slice_angle = 2 * Math.PI * val / total_value;
+                    var pieRadius = Math.min(this.canvas.width/2,this.canvas.height/2);
+                    var labelX = this.canvas.width/2 + (pieRadius / 2) * Math.cos(start_angle + slice_angle/2);
+                    var labelY = this.canvas.height/2 + (pieRadius / 2) * Math.sin(start_angle + slice_angle/2);
+
+                    if (this.options.doughnutHoleSize){
+                        var offset = (pieRadius * this.options.doughnutHoleSize ) / 2;
+                        labelX = this.canvas.width/2 + (offset + pieRadius / 2) * Math.cos(start_angle + slice_angle/2);
+                        labelY = this.canvas.height/2 + (offset + pieRadius / 2) * Math.sin(start_angle + slice_angle/2);
+                    }
+
+                    var labelText = Math.round(100 * val / total_value);
+                    this.ctx.fillStyle = "white";
+                    this.ctx.font = "bold 20px Arial";
+                    this.ctx.fillText(labelText+"%", labelX,labelY);
+                    start_angle += slice_angle;
+                }
+                if (this.options.legend){
+                    color_index = 0;
+                    var legendHTML = "";
+                    for (categ in this.options.data){
+                        legendHTML += "<div><span style='display:inline-block;width:20px;background-color:"+this.colors[color_index++]+";'>&nbsp;</span> "+categ+"</div>";
+                    }
+                    this.options.legend.innerHTML = legendHTML;
+                }
+
+            }
+        }
+
+        var myCanvas = document.getElementById("myCanvas");
+            myCanvas.width = 300;
+            myCanvas.height = 300;
+
+        var myPiechart = new Piechart(
+            {
+                canvas:myCanvas,
+                data:myVinyls,
+                colors:["#fde23e","#f16e23", "#57d9ff","#937e88","#cccccc", "#cc1a4f", "#09c41f", "#d037e8", "#262018", "#1aede2"],
+                doughnutHoleSize:0.3,
+                legend:myLegend
+            }
+        );
+        myPiechart.draw();
+
+        function arrayContains(needle, arrhaystack)
+        {
+            return (arrhaystack.indexOf(needle) > -1);
+        }
+
+        function drawPieSlice(ctx,centerX, centerY, radius, startAngle, endAngle, color ){
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(centerX,centerY);
+            ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+            ctx.closePath();
+            ctx.fill();
+        }
+    });
+
+    </script>
+</body>
+</html>
